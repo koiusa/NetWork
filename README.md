@@ -1,2 +1,2 @@
 # NetWork
-This is a Socekt communications project.
+This is a Socket communications project.
