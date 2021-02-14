@@ -1,0 +1,22 @@
+<resources>
+    <string-array name="language_array">
+        <item>@string/language_ja</item>
+        <item>@string/language_en</item>
+    </string-array>
+    <string name="language_ja">日本語</string>
+    <string name="language_en">English</string>
+
+    <string name="app_name">SpeechRecognizer</string>
+    <string name="title_home">Home</string>
+    <string name="title_configure">Configure</string>
+
+    <string name="Error_Msg_SpeechRecognizerIsInvalid">音声認識が使えません</string>
+    <string name="Error_Msg_RecordPermissionIsDisabled">マイクの権限がありません</string>
+    <string name="Error_Msg_StoragePermissionIsDisabled">ストレージの権限がありません</string>
+
+    <string name="configure_online">オンライン認識</string>
+    <string name="configure_ip">xxx.xxx.xxx.xxx</string>
+    <string name="configure_port">60001</string>
+    <string name="configure_language">言語選択</string>
+    <string name="language_send_result">認識結果送信</string>
+</resources>
