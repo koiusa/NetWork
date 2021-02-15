@@ -18,6 +18,7 @@ import com.example.speechrecognizer.ui.visualizer.LevelMeter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.AppLaunchChecker;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -60,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
         tClient = new Dispatcher(this);
 
         permissionRequest = new PermissionRequest(this);
+        // Check initial boot
+        if (!AppLaunchChecker.hasStartedFromLauncher(getApplicationContext())) {
+            permissionRequest.showRecordPermissionCheck();
+        }
         media = new Media(this);
         if (permissionRequest.storagePermissionRequest()) {
             media.initialize();

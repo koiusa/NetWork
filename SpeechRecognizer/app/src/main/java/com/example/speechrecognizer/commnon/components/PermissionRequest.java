@@ -18,17 +18,20 @@ public class PermissionRequest {
     Activity _activity = null;
     boolean recordPermissionState = false;
     boolean storagePermissionState = false;
-
+    final String[] EXTERNAL_PERMS = {
+            Manifest.permission.RECORD_AUDIO
+            };
     private MessageBrowser messageBrowser = null;
     public PermissionRequest(Activity activity){
         _activity = activity;
         messageBrowser = new MessageBrowser(activity);
     }
-    public boolean recordPermissionCheck(){
-        final String[] EXTERNAL_PERMS = {
-                Manifest.permission.RECORD_AUDIO
-        };
-
+    public void showRecordPermissionCheck() {
+        if (ContextCompat.checkSelfPermission(_activity, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(_activity, EXTERNAL_PERMS, PERMISSION_REQUEST_RECORD);
+            }
+    }
+    public boolean recordPermissionCheck() {
         if (ContextCompat.checkSelfPermission(_activity, Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
             if(ActivityCompat.shouldShowRequestPermissionRationale(_activity, Manifest.permission.RECORD_AUDIO)){
                 ActivityCompat.requestPermissions(_activity, EXTERNAL_PERMS, PERMISSION_REQUEST_RECORD);
