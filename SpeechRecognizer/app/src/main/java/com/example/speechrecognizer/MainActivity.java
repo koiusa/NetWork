@@ -110,12 +110,14 @@ public class MainActivity extends AppCompatActivity {
         try {
             tClient.connect(configure.getIPAddress(), configure.getPort());
         }catch (Exception e){
+            configure.setIPAddress(TcpInfo.getWifiIPAddress(this));
             Log.d(Util.getClassName(), e.getMessage());
         }
         //認識結果表示イベントを追加
         recognizer.OnResultsListener(new Recognizer.OnResultsListener(){
             @Override
             public void onResults(String results) {
+                if (configure.getUseSuffix()) results += configure.getSuffix();
                 TextView resultView = (TextView)findViewById(R.id.recognize_text_view);
                 resultView.setText(results);
                 tClient.send(results);

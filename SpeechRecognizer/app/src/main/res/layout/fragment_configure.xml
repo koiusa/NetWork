@@ -9,7 +9,7 @@
     <LinearLayout
         android:id="@+id/configure_background"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="240dp"
         android:orientation="vertical"
         android:background="@color/gray_400"
         android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -47,36 +47,78 @@
         app:layout_constraintTop_toTopOf="parent">
     </LinearLayout>
 
-    <Switch
-        android:id="@+id/configure_language_switch"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/configure_language_LinearLayout"
+        android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:text="@string/configure_language"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_width="wrap_content"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         app:layout_constraintTop_toBottomOf="@id/configure_recognize_category_border"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintLeft_toLeftOf="@id/configure_recognize_category_border"
+        app:layout_constraintRight_toRightOf="@id/configure_recognize_category_border"
+        app:layout_constraintEnd_toEndOf="@id/configure_background">
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@+id/configure_language"
+            android:text="@string/caption_language"/>
+        <Spinner
+            android:id="@+id/configure_language"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/activity_horizontal_margin"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin" />
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/configure_language_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/configure_language" />
+    </LinearLayout>
 
-    <Spinner
-        android:id="@+id/configure_language"
-        android:layout_width="wrap_content"
+
+    <LinearLayout
+        android:id="@+id/configure_online_LinearLayout"
+        android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_width="wrap_content"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/configure_language_switch"
-        app:layout_constraintTop_toBottomOf="@id/configure_recognize_category_border" />
+        app:layout_constraintTop_toBottomOf="@id/configure_language_LinearLayout"
+        app:layout_constraintLeft_toLeftOf="@id/configure_language_LinearLayout"
+        app:layout_constraintRight_toRightOf="@id/configure_language_LinearLayout"
+        app:layout_constraintEnd_toEndOf="@id/configure_background">
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/configure_prefer_offline_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/configure_online" />
+    </LinearLayout>
 
-    <Switch
-        android:id="@+id/configure_prefer_offline_switch"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/configure_suffix_LinearLayout"
+        android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:text="@string/configure_online"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        app:layout_constraintVertical_chainStyle="@id/configure_language_switch"
-        app:layout_constraintEnd_toEndOf="@id/configure_language_switch"
-        app:layout_constraintTop_toBottomOf="@id/configure_language_switch" />
+        android:layout_width="wrap_content"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        app:layout_constraintTop_toBottomOf="@id/configure_online_LinearLayout"
+        app:layout_constraintLeft_toLeftOf="@id/configure_online_LinearLayout"
+        app:layout_constraintRight_toRightOf="@id/configure_online_LinearLayout"
+        app:layout_constraintEnd_toEndOf="@id/configure_background">
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@+id/configure_suffix"
+            android:text="@string/caption_suffix"/>
+        <EditText
+            android:id="@+id/configure_suffix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/configure_suffix_dummy"
+            android:inputType="text"
+            android:autofillHints="" />
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/configure_suffix_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/configure_suffix" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/configure_storage_category_border"
@@ -89,42 +131,45 @@
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/configure_prefer_offline_switch">
+        app:layout_constraintTop_toBottomOf="@id/configure_suffix_LinearLayout">
     </LinearLayout>
 
-    <Switch
-        android:id="@+id/configure_ip_switch"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:text="@string/language_send_result"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        app:layout_constraintVertical_chainStyle="@id/configure_prefer_offline_switch"
-        app:layout_constraintEnd_toEndOf="@id/configure_language_switch"
-        app:layout_constraintTop_toBottomOf="@id/configure_storage_category_border" />
-
-    <EditText
-        android:id="@+id/configure_ip"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:text="@string/configure_ip"
-        android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/configure_ip_switch"
         app:layout_constraintTop_toBottomOf="@id/configure_storage_category_border"
-        android:autofillHints="@android:string/autofill"/>
+        app:layout_constraintLeft_toLeftOf="@id/configure_storage_category_border"
+        app:layout_constraintRight_toRightOf="@id/configure_storage_category_border"
+        app:layout_constraintEnd_toEndOf="@id/configure_background">
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@+id/configure_ip"
+            android:text="@string/caption_ip"/>
+        <EditText
+            android:id="@+id/configure_ip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/configure_ip"
+            android:inputType="text"
+            android:autofillHints="" />
 
-    <EditText
-        android:id="@+id/configure_port"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/configure_port"
-        android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@id/configure_storage_category_border"
-        app:layout_constraintLeft_toRightOf="@id/configure_ip"
-        app:layout_constraintRight_toLeftOf="@id/configure_ip_switch"
-        app:layout_constraintTop_toTopOf="@id/configure_ip"
-        android:autofillHints="@android:string/autofill" />
-
+        <TextView android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@+id/configure_port"
+            android:text="@string/caption_port"/>
+        <EditText
+            android:id="@+id/configure_port"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/configure_port"
+            android:inputType="number"
+            android:autofillHints="@android:string/autofill" />
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/configure_ip_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/language_send_result" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

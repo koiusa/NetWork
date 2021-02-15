@@ -14,9 +14,15 @@
     <string name="Error_Msg_RecordPermissionIsDisabled">マイクの権限がありません</string>
     <string name="Error_Msg_StoragePermissionIsDisabled">ストレージの権限がありません</string>
 
+    <string name="configure_language">選択</string>
     <string name="configure_online">オンライン認識</string>
+    <string name="configure_suffix">付与</string>
+    <string name="configure_suffix_dummy">にゃん</string>
+    <string name="language_send_result">認識結果送信</string>
     <string name="configure_ip">xxx.xxx.xxx.xxx</string>
     <string name="configure_port">60001</string>
-    <string name="configure_language">言語選択</string>
-    <string name="language_send_result">認識結果送信</string>
+    <string name="caption_language">言語</string>
+    <string name="caption_ip">IP</string>
+    <string name="caption_port">Port</string>
+    <string name="caption_suffix">語尾</string>
 </resources>
