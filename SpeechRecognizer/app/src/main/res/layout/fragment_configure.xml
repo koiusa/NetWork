@@ -167,7 +167,7 @@
             android:inputType="number"
             android:autofillHints="@android:string/autofill" />
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/configure_ip_switch"
+            android:id="@+id/configure_send_switch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/language_send_result" />

@@ -59,6 +59,16 @@ public class configureFragment extends Fragment {
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
         });
 
+        SwitchCompat useSend = root.findViewById(R.id.configure_send_switch);
+        useSend.setChecked(configure.getUseSend());
+        useSend.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                configure.setUseSend(isChecked);
+                ipAddress.setEnabled(isChecked);
+                port.setEnabled(isChecked);
+            }
+        });
+
         TextView suffix = root.findViewById(R.id.configure_suffix);
         suffix.setText(String.valueOf(configure.getSuffix()));
         suffix.addTextChangedListener(new TextWatcher() {
@@ -82,6 +92,23 @@ public class configureFragment extends Fragment {
         String[] labels = getResources().getStringArray(R.array.language_array);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_spinner_item, labels);
         spinner.setAdapter(adapter);
+
+        SwitchCompat useLanguage = root.findViewById(R.id.configure_language_switch);
+        useLanguage.setChecked(configure.getUseLanguage());
+        useLanguage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                configure.setUseLanguage(isChecked);
+                spinner.setEnabled(isChecked);
+            }
+        });
+
+        SwitchCompat onLine = root.findViewById(R.id.configure_prefer_offline_switch);
+        onLine.setChecked(configure.getOnline());
+        onLine.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                configure.setOnline(isChecked);
+            }
+        });
         return root;
     }
 }

@@ -119,13 +119,22 @@ public class MainActivity extends AppCompatActivity {
             Log.d(Util.getClassName(), e.getMessage());
         }
         //認識結果表示イベントを追加
-        recognizer.OnResultsListener(new Recognizer.OnResultsListener(){
+        recognizer.OnResultsListener(new Recognizer.onRecognizeListener(){
+            @Override
+            public void onStart() {
+                //音声認識のパラメータを設定
+                Recognizer.RecognitionConfigure config = recognizer.getConfigure();
+                config.onLine = configure.getOnline();
+                config.useLanguage = configure.getUseLanguage();
+                recognizer.setConfigure(config);
+            }
+
             @Override
             public void onResults(String results) {
                 if (configure.getUseSuffix()) results += configure.getSuffix();
                 TextView resultView = (TextView)findViewById(R.id.recognize_text_view);
                 resultView.setText(results);
-                tClient.send(results);
+                if (configure.getUseSend()) tClient.send(results);
                 media.commit(results);
             }
         });

@@ -20,6 +20,12 @@ import java.util.Locale;
 public class Recognizer implements RecognitionListener, FftConvertListener {
     private final String TAG = Util.getClassName() ;
 
+    public class RecognitionConfigure{
+        public String language = Locale.getDefault().getLanguage();
+        public boolean useLanguage = Configure.DefaultProperty.DEFAULT_USE_LANGUAGE;
+        public boolean onLine = Configure.DefaultProperty.DEFAULT_ONLINE;
+    }
+
     //音量表示
     public interface OnLevelChangeListener {
         void onLevelChanged(float rmsdB);
@@ -39,12 +45,13 @@ public class Recognizer implements RecognitionListener, FftConvertListener {
     }
 
     //結果表示
-    public interface OnResultsListener {
+    public interface onRecognizeListener {
+        void onStart();
         void onResults(String results);
     }
-    private OnResultsListener _resultsListener = null;
-    public void OnResultsListener(OnResultsListener resultsListener){
-        _resultsListener = resultsListener;
+    private onRecognizeListener _recognizerListener = null;
+    public void OnResultsListener(onRecognizeListener resultsListener){
+        _recognizerListener = resultsListener;
     }
 
     // サンプリングレート
@@ -58,10 +65,19 @@ public class Recognizer implements RecognitionListener, FftConvertListener {
     private Intent recognizerIntent = null;
 
     private boolean started = false;
+
+    private RecognitionConfigure recognitionConfigure;
+    public RecognitionConfigure  getConfigure(){
+        return recognitionConfigure;
+    }
+    public void  setConfigure(RecognitionConfigure configure){
+        recognitionConfigure = configure;
+    }
     public Recognizer(Activity activity){
         _activity = activity;
         messageBrowser = new MessageBrowser(activity);
         fftConverter = new FftConverter(this);
+        recognitionConfigure = new RecognitionConfigure();
     }
 
     private void setupSpeechRecognizer(){
@@ -77,10 +93,10 @@ public class Recognizer implements RecognitionListener, FftConvertListener {
         if (recognizerIntent == null) {
             recognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault().getLanguage());
+            recognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, recognitionConfigure.useLanguage ? recognitionConfigure.language : Locale.getDefault().getLanguage());
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, _activity.getPackageName());
             recognizerIntent.putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true);
-            recognizerIntent.putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, false);
+            recognizerIntent.putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, !recognitionConfigure.onLine);
         }
     }
 
@@ -116,6 +132,7 @@ public class Recognizer implements RecognitionListener, FftConvertListener {
     public void startListening(){
         Log.d(TAG, Util.getMethodName());
         try {
+            _recognizerListener.onStart();
             setupSpeechRecognizer();
             setupRecognizerIntent();
             speechRecognizer.startListening(recognizerIntent);
@@ -241,8 +258,8 @@ public class Recognizer implements RecognitionListener, FftConvertListener {
         Log.d(TAG, Util.getMethodName());
         String resultsRecognition = getResultsRecognition(results);
         if (!resultsRecognition.isEmpty()) {
-            if (_resultsListener != null) {
-                _resultsListener.onResults(resultsRecognition);
+            if (_recognizerListener != null) {
+                _recognizerListener.onResults(resultsRecognition);
             }
         }
         restartListeningService();
