@@ -41,6 +41,7 @@ public class configureFragment extends Fragment {
         configure = new Configure(getContext());
         TextView ipAddress = root.findViewById(R.id.configure_ip);
         ipAddress.setText(configure.getIPAddress());
+        ipAddress.setEnabled(configure.getUseSend());
         ipAddress.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
                 configure.setIPAddress(s.toString());
@@ -51,6 +52,7 @@ public class configureFragment extends Fragment {
 
         TextView port = root.findViewById(R.id.configure_port);
         port.setText(String.valueOf(configure.getPort()));
+        port.setEnabled(configure.getUseSend());
         port.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
                 configure.setPort(Integer.valueOf(s.toString()));
@@ -71,6 +73,7 @@ public class configureFragment extends Fragment {
 
         TextView suffix = root.findViewById(R.id.configure_suffix);
         suffix.setText(String.valueOf(configure.getSuffix()));
+        suffix.setEnabled(configure.getUseSuffix());
         suffix.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
                 configure.setSuffix(s.toString());
@@ -92,7 +95,7 @@ public class configureFragment extends Fragment {
         String[] labels = getResources().getStringArray(R.array.language_array);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(root.getContext(), android.R.layout.simple_spinner_item, labels);
         spinner.setAdapter(adapter);
-
+        spinner.setEnabled(configure.getUseLanguage());
         SwitchCompat useLanguage = root.findViewById(R.id.configure_language_switch);
         useLanguage.setChecked(configure.getUseLanguage());
         useLanguage.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
