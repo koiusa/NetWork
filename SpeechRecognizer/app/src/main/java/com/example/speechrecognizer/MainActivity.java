@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setMute();
+        //setMute();
         try {
             tClient.connect(configure.getIPAddress(), configure.getPort());
         }catch (Exception e){
@@ -143,17 +143,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         recognizer.stopListening();
-        setUnMute();
+        //setUnMute();
         super.onPause();
     }
 
     private void setMute(){
         AudioManager alramManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        alramManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, 0);
+        if (alramManager != null) {
+            alramManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_MUTE, 0);
+        }
     }
 
     private void setUnMute(){
         AudioManager alramManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
-        alramManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, 0);
+        if (alramManager != null) {
+            alramManager.adjustStreamVolume(AudioManager.STREAM_SYSTEM, AudioManager.ADJUST_UNMUTE, 0);
+        }
     }
 }
