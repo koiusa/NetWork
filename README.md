@@ -1,9 +1,9 @@
 # NetWork
 ## This is a Socket communications project.
 
-Socket Directory is Server Project.(for Windows).
+Socket Directory is Server Project.(with TestClient for Windows).
 
-SpeechRecognizer Directory is Client Project(for Android).
+SpeechRecognizer Directory is Client Project.(for Android)
 
 Android同梱の音声認識機能の結果をTCP/IPでPCに送信し、
 
