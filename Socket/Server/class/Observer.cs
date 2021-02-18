@@ -28,6 +28,7 @@ namespace Server
 
             public void Execute()
             {
+                signal = true;
                 while (signal)
                 {
                     mut.WaitOne();
