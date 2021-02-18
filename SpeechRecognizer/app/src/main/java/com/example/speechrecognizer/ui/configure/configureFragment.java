@@ -1,5 +1,6 @@
 package com.example.speechrecognizer.ui.configure;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -18,13 +19,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.speechrecognizer.App;
+import com.example.speechrecognizer.MainActivity;
 import com.example.speechrecognizer.R;
 import com.example.speechrecognizer.commnon.components.Configure;
+import com.example.speechrecognizer.commnon.network.Dispatcher;
 
 public class configureFragment extends Fragment {
     private Configure configure = null;
     private ConfigureViewModel configureViewModel;
-
+    private Dispatcher tClient = null;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         configureViewModel =
@@ -39,6 +43,9 @@ public class configureFragment extends Fragment {
         });
 
         configure = new Configure(getContext());
+        MainActivity main = (MainActivity)getActivity();
+        App app = (App) main.getApplication();
+        tClient = app.getDispatcher();
         TextView ipAddress = root.findViewById(R.id.configure_ip);
         ipAddress.setText(configure.getIPAddress());
         ipAddress.setEnabled(configure.getUseSend());
@@ -68,6 +75,11 @@ public class configureFragment extends Fragment {
                 configure.setUseSend(isChecked);
                 ipAddress.setEnabled(isChecked);
                 port.setEnabled(isChecked);
+                if (isChecked){
+                    tClient.startSequence(configure.getIPAddress(),configure.getPort());
+                }else{
+                    tClient.disConnect();
+                }
             }
         });
 

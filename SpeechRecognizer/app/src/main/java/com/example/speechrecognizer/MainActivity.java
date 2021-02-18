@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private FftView fftView = null;
     private LevelMeter levelMeter = null;
 
-    private Dispatcher tClient = null;
     private Configure configure = null;
+    private Dispatcher tClient = null;
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         permissionRequest.requestPermissionsResult(requestCode, permissions, grantResults);
@@ -53,12 +53,15 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
+        App app = (App) this.getApplication();
+        app.setDispatcher( new Dispatcher(this));
+        tClient = app.getDispatcher();
+
         configure = new Configure(this);
-        //初期値を一旦ローカルアドレスにする
+        //初回起動時、初期値を一旦ローカルアドレスにする
         if (configure.getIPAddress().isEmpty()){
             configure.setIPAddress(TcpInfo.getWifiIPAddress(this));
         }
-        tClient = new Dispatcher(this);
 
         permissionRequest = new PermissionRequest(this);
         // Check initial boot
@@ -99,6 +102,10 @@ public class MainActivity extends AppCompatActivity {
                 fftView.update(fft);
             }
         });
+
+        if (configure.getUseSend()){
+            tClient.startSequence(configure.getIPAddress(),configure.getPort());
+        }
     }
 
     @Override
@@ -112,12 +119,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         //setMute();
-        try {
-            tClient.connect(configure.getIPAddress(), configure.getPort());
-        }catch (Exception e){
-            configure.setIPAddress(TcpInfo.getWifiIPAddress(this));
-            Log.d(Util.getClassName(), e.getMessage());
-        }
         //認識結果表示イベントを追加
         recognizer.OnResultsListener(new Recognizer.onRecognizeListener(){
             @Override
