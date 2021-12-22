@@ -21,3 +21,6 @@ https://qiita.com/sourcekatu/items/3501d421a6c3a4a2be17
 ### FFT関連は以下のサイト様のものを参考にしています。
 
 https://gist.github.com/asumin/8869749#file-fftview-java
+
+### 参考動画
+https://video.twimg.com/ext_tw_video/1361646569712357381/pu/vid/480x270/9Nv5_rx2IlKbKJ0o.mp4
